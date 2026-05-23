@@ -1,7 +1,7 @@
 ---
 name: vibe-coding-new-project
 description: >-
-  Vibe Coding 新项目：默认在项目根目录创建 RESEARCH/PRD/TECH_DESIGN/AGENTS/README/TODO 模版文档，并补全 .cursorignore、DESIGN.md（AGENTS.md 已包含在默认清单），除非用户明确不要。
+  Vibe Coding 新项目：默认在项目根目录创建 RESEARCH/PRD/TECH_DESIGN/AGENTS/README/TODO 模版文档，并补全 .cursorignore、DESIGN.md（UI 设计规范，AGENTS.md 须强制引用；格式见 getdesign.md），除非用户明确不要。
   Use when starting a greenfield project, 从0到1, 新项目, 初始化仓库, 写 PRD, AGENTS.md, TODO.md,
   或用户要求按 Vibe Coding 五步推进；用户说不要文档/只要代码时则不创建。
 ---
@@ -25,7 +25,7 @@ description: >-
 | `README.md` | 项目说明、如何运行、目录与规范摘要 |
 | `TODO.md` | 进度清单（可从 PRD 的 MVP 拆项） |
 | `.cursorignore` | Cursor 索引忽略规则（见下方「7) `.cursorignore` 参考模板」） |
-| `DESIGN.md` | 项目设计规范 |
+| `DESIGN.md` | **UI 设计规范**（范本：`ui.vintage.loongzero.com/themes/market-nest/DESIGN.md`；标准见 [getdesign.md](https://getdesign.md/what-is-design-md)） |
 
 **例外（不创建或仅口头约定）**：用户明确说「不要模版文档」「跳过文档」「只要代码/原型」「不要 RESEARCH/PRD」等 —— 按其要求执行，不强行落盘。
 
@@ -45,7 +45,8 @@ description: >-
 - `RESEARCH.md`：记录调研事实、问题分析与结论，回答“**为什么这样做**”。
 - `PRD.md`：记录目标用户、需求范围、MVP 与验收边界，回答“**要做什么**”。
 - `TECH_DESIGN.md`：记录技术选型、实现边界、目录与接口方案，回答“**怎么实现**”。
-- `AGENTS.md`：记录长期有效的开发规范、流程规则、协作约束，回答“**如何持续协作**”。
+- `AGENTS.md`：记录长期有效的开发规范、流程规则、协作约束，回答“**如何持续协作**”；**须在正文中明确：`DESIGN.md` 为 UI 设计规范单一事实来源，实现 UI 时强制参考**。
+- `DESIGN.md`：记录 UI 设计语言与可执行规范（设计图案/意图、色板、排版、字号层级、间距、圆角、阴影、组件形态、交互状态、Do/Don't 等），回答“**界面长什么样、怎么搭**”；格式与组织方式对齐 [What is DESIGN.md?](https://getdesign.md/what-is-design-md)（getdesign.md 生态标准）。
 - `TODO.md`：记录可执行任务与状态流转，回答“**当前做到哪里**”。
 - `README.md`：记录项目说明、启动方式、目录概览与关键约束摘要，回答“**项目如何上手**”。
 
@@ -59,8 +60,9 @@ description: >-
 1. **Research** → 仓库根目录 `RESEARCH.md`（目标、调研、核心需求）。
 2. **PRD** → `PRD.md`（概述、用户、功能列表、MVP/后续、界面、边界）。
 3. **Tech Design** → `TECH_DESIGN.md`（技术栈、目录结构、数据模型、关键点）。
-4. **AGENTS** → `AGENTS.md`（概述、规范、风格、测试、注意事项；Windows 需写 OS/终端/兼容命令）。
-5. **Build** → 按 `PRD` + `TECH_DESIGN` + `AGENTS` 初始化工程，再分功能实现，每步可运行、可测、可提交 Git。
+4. **AGENTS** → `AGENTS.md`（概述、规范、风格、测试、注意事项；**含「UI 与 DESIGN.md」强制条款**；Windows 需写 OS/终端/兼容命令）。
+5. **DESIGN**（有 UI 时）→ `DESIGN.md`（按 [getdesign.md](https://getdesign.md/what-is-design-md) 标准落盘；无 UI 的纯后端/工具项目可占位说明「不适用」）。
+6. **Build** → 按 `PRD` + `TECH_DESIGN` + `AGENTS` + `DESIGN.md`（涉及界面时）初始化工程，再分功能实现，每步可运行、可测、可提交 Git。
 
 **并行文档**：`README.md`（项目说明、运行方式、目录与规范）；`TODO.md`（进度清单，可从 PRD 的 MVP 拆成勾选项）。初始化后即可建立 `TODO.md`，随开发更新。
 
@@ -85,7 +87,7 @@ description: >-
 1. **第一步**：在仓库根目录创建上表 **8 个模版文件**（缺则补全，已有则对齐更新），除非用户已声明不要。其中 `.cursorignore` **默认按下方参考模板落盘**，再按项目类型（uni-app / Web / 后端等）增删条目。
 2. 若只有模糊想法：用「先问再答」补全需求，**写入 `RESEARCH.md` / `PRD.md`** 再往下。
 3. 若用户直接要代码：仍**默认先创建/更新模版文档**，再初始化工程；仅当用户声明不要文档时跳过。
-4. 生成初始化或实现时，引用 `PRD.md`、`TECH_DESIGN.md`、`AGENTS.md`。
+4. 生成初始化或实现时，引用 `PRD.md`、`TECH_DESIGN.md`、`AGENTS.md`；**涉及页面/组件/样式时须先读 `DESIGN.md` 并严格对齐**。
 5. 实现单功能时，使用「单功能模版」，并**限定文件范围**。
 6. 完成一条功能后：更新 `TODO.md`（及必要时 `README.md`）。
 
@@ -93,6 +95,7 @@ description: >-
    - 需求变更：先 `RESEARCH.md` / `PRD.md`
    - 方案变更：再 `TECH_DESIGN.md`
    - 规则沉淀：更新 `AGENTS.md`
+   - 视觉/组件规范变更：同步 `DESIGN.md`（格式参考 [getdesign.md](https://getdesign.md/what-is-design-md)）
    - 执行落地：最后更新 `TODO.md`
 
 ## 必备提示模版（直接可用）
@@ -108,13 +111,13 @@ description: >-
 **初始化工程**
 
 ```
-请根据 PRD.md、TECH_DESIGN.md 和 AGENTS.md 初始化项目并创建基本结构：安装依赖、目录结构、开发环境配置、基础路由与页面框架，确保项目能启动。
+请根据 PRD.md、TECH_DESIGN.md、AGENTS.md 和 DESIGN.md（有 UI 时）初始化项目并创建基本结构：安装依赖、目录结构、开发环境配置、基础路由与页面框架，确保项目能启动；页面样式须对齐 DESIGN.md。
 ```
 
 **单功能**
 
 ```
-我要实现【功能名】。请根据 PRD.md 与 TECH_DESIGN.md，在【路径/组件名】完成【行为描述】。
+我要实现【功能名】。请根据 PRD.md、TECH_DESIGN.md 与 DESIGN.md（涉及 UI 时），在【路径/组件名】完成【行为描述】。
 ```
 
 **限定范围**
@@ -170,6 +173,13 @@ description: >-
 - 默认最小改动；优先修改用户指定路径；不扩散无关重构。
 - 复用优先：高复用逻辑尽量组件化/模块化。
 - Windows 环境补充 PowerShell 与路径兼容要求。
+
+## UI 与 DESIGN.md（强制）
+- 项目根目录 **`DESIGN.md`** 为本项目 **UI 设计规范** 的单一事实来源，用于描述设计图案/意图、色板、排版、字号层级、间距、圆角、阴影、组件形态、交互状态及 Do/Don't 等可执行约束。
+- **生成或修改任意页面、组件、样式相关代码前，须先阅读并严格遵守 `DESIGN.md`**；禁止自创与规范冲突的配色、字号、间距或组件形态。
+- `DESIGN.md` 的结构与写法对齐 [getdesign.md — What is DESIGN.md?](https://getdesign.md/what-is-design-md)；新建或大幅改版时按该标准组织（设计令牌、组件规范、交互状态等须给出明确值或约束）。
+- 若项目尚无 `DESIGN.md` 却要做 UI，须先按 getdesign 标准补齐该文件，再写界面代码，不得无规范盲改。
+- 多主题/多皮肤项目可在子目录各放一份 `DESIGN.md`（如 `themes/<id>/DESIGN.md`），`AGENTS.md` 中须写明以哪份为准及切换规则。
 
 ## 文档协作规范（vibe-coding-new-project）
 - 文档顺序：`RESEARCH.md` -> `PRD.md` -> `TECH_DESIGN.md` -> `AGENTS.md` -> `TODO.md`
@@ -229,6 +239,7 @@ _产品负责人：<name>_
 ## 三、需求范围及版本规划（MVP / 后续）
 ## 四、详细功能列表
 ## 五、用户体验与设计规范
+- 可执行视觉规范落盘于根目录 `DESIGN.md`（见 [getdesign.md](https://getdesign.md/what-is-design-md)）；`AGENTS.md` 强制开发时引用
 ## 六、技术与数据要求
 ## 七、边界与限制
 ## 八、非功能性需求
@@ -317,6 +328,7 @@ _产品负责人：<name>_
 | `pages/` | 页面目录 |
 | `main.uts` / `App.uvue` | 入口与根组件 |
 | `TECH_DESIGN.md` | 技术设计 |
+| `DESIGN.md` | UI 设计规范 |
 | `TODO.md` | 任务进度 |
 
 ## 规范摘要
@@ -326,10 +338,124 @@ _产品负责人：<name>_
 - `RESEARCH.md`
 - `PRD.md`
 - `TECH_DESIGN.md`
+- `DESIGN.md`（UI 设计规范，见 [getdesign.md](https://getdesign.md/what-is-design-md)）
 - `TODO.md`
 ```
 
-### 7) `.cursorignore` 参考模板（property_uniapp）
+### 7) `DESIGN.md` 参考模板（UI 设计规范）
+
+> 职能：**UI 设计规范**，非技术架构文档。章节结构与写法以 **`ui.vintage.loongzero.com/themes/market-nest/DESIGN.md`** 为范本（getdesign 生态实践样例）；标准说明见 [What is DESIGN.md?](https://getdesign.md/what-is-design-md)。纯后端/无界面项目可在文首注明「本项目无 UI，本文件不适用」。
+
+```md
+# <产品/主题名>
+
+<一句话设计气质，如：Warm, community-driven, handmade feel.>
+
+## Overview
+
+<2–4 句：产品定位、布局气质、主色与视觉哲学、与竞品的差异。说明深度层次策略（如 flat + border 而非 shadow）。>
+
+## Colors
+
+- **Primary** (#XXXXXX): <用途，如 Primary CTAs、主导航激活>
+- **Secondary** (#XXXXXX): <用途>
+- **Tertiary** (#XXXXXX): <用途>
+- **Background** (#XXXXXX): <全局页面背景>
+- **Surface** (#XXXXXX): <卡片、弹层等>
+- **Success** (#XXXXXX)
+- **Warning** (#XXXXXX)
+- **Error** (#XXXXXX)
+- **Info** (#XXXXXX)
+
+## Typography
+
+- **Headline Font**: <字体名>
+- **Body Font**: <字体名>
+- **Mono Font**: <字体名>
+
+- **Display**: <字体 字号 字重, 行高, 字距>. <使用场景>.
+- **Headline**: ...
+- **Subhead**: ...
+- **Body Large**: ...
+- **Body**: ...
+- **Body Small**: ...
+- **Caption**: ...
+- **Overline**: ...
+- **Code**: ...
+
+## Spacing
+
+- **Base unit:** <如 8px>
+- **Scale:** <如 4, 8, 12, 16, 24, 32, 48, 64, 96, 128>
+- **Component padding:** <small / medium / large 具体值>
+- **Section spacing:** <mobile / tablet / desktop 分段间距>
+
+## Border Radius
+
+- **None:** <px> — <用途>
+- **Small:** ...
+- **Medium:** ...
+- **Large:** ...
+- **XL:** ...
+- **Full:** 9999px — <圆形头像等>
+
+## Elevation
+
+<本主题的深度策略说明，如 flat 无阴影、用边框分层；或 shadow 阶梯。>
+- **Subtle:** ...
+- **Medium:** ...
+- **Large:** ...
+- **Overlay:** ...
+- **Focus Ring:** ...
+
+## Components
+
+### Buttons
+**Primary (Filled)** — `bg: ...`, `text: ...`, `font: ...`, `padding: ...`, `radius: ...`, `hover: ...`, `active: ...`
+**Secondary (Outline)** — ...
+**Ghost** — ...
+**Destructive** — ...
+- **Sizes**: Small `...`, Medium `...`, Large `...`
+- **Disabled**: ...
+
+### Cards
+**Default** — ...
+**Elevated** — ...
+
+### Inputs
+**Text Input** — `bg`, `border`, `focus`, `error`, `disabled` 等完整 token
+- **Label**: ...
+- **Helper text**: ...
+
+### Chips
+**Filter Chip** — ...
+**Status Chip** — Success / Warning / Error 各色值
+
+### Lists
+**Default List Item** — `height`, `padding`, `divider`, `hover`, `selected`, `icon variant`
+
+### Checkboxes
+<尺寸、边框、选中/半选/禁用、与 label 间距>
+
+### Radio Buttons
+<同上粒度>
+
+### Tooltips
+<背景、字号、padding、radius、箭头、delay、位置偏好>
+
+## Do's and Don'ts
+- **Do** ...
+- **Don't** ...
+```
+
+编写要求（对齐 market-nest 范本 + getdesign 标准）：
+- 文首用英文或中文短句点明气质；`Overview` 写清「为什么这样设计」。
+- **Colors / Typography / Spacing / Border Radius / Elevation** 须给出**具体色值、px、字体栈与使用场景**，禁止只写「温暖」「简约」等形容词。
+- **Components** 按组件类型分节，每种变体用一行 token 串（`bg` / `border` / `hover` / `disabled` 等）写全，可直接对照实现。
+- **Do's and Don'ts** 写业务与视觉边界（如禁止乱用主色做装饰边框），不少于 4 条 Do、4 条 Don't。
+- 与 `AGENTS.md` 中「UI 与 DESIGN.md」条款一致；多主题项目可在 `themes/<id>/DESIGN.md` 各维护一份，结构同上。
+
+### 8) `.cursorignore` 参考模板（property_uniapp）
 
 新项目初始化时**默认创建**此文件；非 uni-app 项目可保留通用段（依赖、构建产物、IDE、日志、锁文件），删除或替换 uni-app 专有段。
 
